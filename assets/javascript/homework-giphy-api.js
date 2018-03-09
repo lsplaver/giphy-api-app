@@ -2,12 +2,17 @@ $(document).ready(function() {
     // declaring global variables
     var topics = [];
 
-    // function to create the buttons container
+    // function to create the buttons container section of the page
     function initializeButtonsContainer() {
         // for loop to create the buttons for each index of the topics array
         for (var x = 0; x < topics.length; x++) {
             $("#buttonsContainer").append($("<button>").attr("id", topics[x]).text(topics[x]));
         }
+    }
+
+    // function to create the results container section of the page
+    function initializeGifResultsContainer() {
+        
     }
 
     // function to create the add a topic section of the page
