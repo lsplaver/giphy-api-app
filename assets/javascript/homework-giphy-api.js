@@ -84,11 +84,11 @@ $(document).ready(function() {
     //     }
     }
 
-    function displayResults() {
+    function displayResults(btnClicked) {
         var btnClicked = $(this).attr("id");
         // displayResults(btnClicked);
         
-        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=W3Nj5uF17CXgQ3pHRxcfbAQyk4xwXotM&q="
+        var queryURL = "http://api.giphy.com/v1/gifs/search?api_key=W3Nj5uF17CXgQ3pHRxcfbAQyk4xwXotM&q="
              + btnClicked + "&limit=25&offset=0&rating=y&rating=g&rating=pg&rating=pg13&lang=en";
         $.ajax({
             url: queryURL,
@@ -131,5 +131,11 @@ $(document).ready(function() {
         // }
     });
 
-    $("button").on("click", ".topics-info", displayResults());
+    // $("button").on("click", ".topics-info", displayResults());
+    $(".topics-info").on("click", function(event) {
+        event.preventDefault();
+
+        var btnClicked = $(this).attr("id");
+        displayResults(btnClicked);
+    });
 })
