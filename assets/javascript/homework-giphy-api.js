@@ -6,19 +6,19 @@ $(document).ready(function() {
     function initializeButtonsContainer() {
         // for loop to create the buttons for each index of the topics array
         for (var x = 0; x < topics.length; x++) {
-            $("#buttonsContainer").append($("<button>").attr("id", topics[x]).text(topics[x]));
+            $("#buttonsContainer").append($("<button>").attr("id", ("btnTopic-" + topics[x])).text(topics[x]));
         }
     }
 
-    // function to create the results container section of the page
-    function initializeGifResultsContainer() {
+    // // function to create the results container section of the page
+    // function initializeGifResultsContainer() {
         
-    }
+    // }
 
     // function to create the add a topic section of the page
-    function initializeAddATopicContainer() {
+    function initializeAddTopicContainer() {
         // creates a variable for creating new elements
-        var newElement, targetDiv = $("#addATopicContainer");
+        var newElement, targetDiv = $("#addTopicContainer");
 
         // creates and adds the text for a new label element
         newElement = $("<label>").text("Add a topic");
@@ -49,5 +49,26 @@ $(document).ready(function() {
     topics = ["dog", "cat", "rabbit"];
 
     // call initialize functions
-    initializeButtonsContainer(),initializeAddATopicContainer();
+    initializeButtonsContainer(),initializeAddTopicContainer();
+
+    function addNewTopicButton(newTopic) {
+        topics.push(newTopic);
+        var x = topics.length - 1;
+        $("#buttonsContainer").append($("<button>").attr("id", ("btnTopic-" + topics[x])).text(topics[x]));
+    }
+
+    // event listener for when a button is clicked
+    $("button").on("click", function(event) {
+        // prevents the form from immediately submitting
+        event.preventDefault();
+
+        // creates a variable to temporarily hold the id of the button clicked
+        var btnTargetId = $(this).attr("id");
+
+        // check to see which type of button was clicked - btnSubmit or one of the btnTopic buttons
+        if (btnTargetId === "btnSubmit") {
+            var newTopic = $("#topicInput").val().trim();
+            addNewTopicButton(newTopic);
+        }
+    });
 })

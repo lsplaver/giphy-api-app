@@ -1,0 +1,20 @@
+#addTopicContainer {
+    float: right;
+}
+
+#gifResultsContainer {
+    float: left;
+}
+
+body {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#buttonsContainer {
+    margin: 20px;
+}
+
+button {
+    margin: 5px;
+}
