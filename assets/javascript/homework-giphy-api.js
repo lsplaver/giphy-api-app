@@ -101,7 +101,7 @@ $(document).ready(function() {
     }
 
     // event listener for when a button is clicked
-    $("button").on("click", function(event) {
+    $("#btnSubmit" /*"button" */).on("click", function(event) {
         // prevents the form from immediately submitting
         event.preventDefault();
 
@@ -109,10 +109,10 @@ $(document).ready(function() {
         var btnTargetId = $(this).attr("id");
 
         // check to see which type of button was clicked - btnSubmit or one of the btnTopic buttons
-        if (btnTargetId === "btnSubmit") {
+        // if (btnTargetId === "btnSubmit") {
             var newTopic = $("#topicInput").val().trim();
             addNewTopicButton(newTopic);
-        }
+        // }
 
         // else {
             // var btnClicked = $(this).attr("id");
