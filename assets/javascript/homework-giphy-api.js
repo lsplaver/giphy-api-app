@@ -41,7 +41,7 @@ $(document).ready(function() {
     }
 
     // current test values for initializing topics array
-    topics = ["dog", "cat", "rabbit"];
+    topics = ["dog", "cat", "rabbit", "aragorn", "arnold schwarzenegger"];
 
     // call initialize functions
     initializeButtonsContainer(),initializeAddTopicContainer();
@@ -78,11 +78,11 @@ $(document).ready(function() {
                 var ratingLabel = $("<label>").text("Rating: " + results[x].rating);
                 var topicImage = $("<img>").attr("src", results[x].images.fixed_height_still.url).
                     attr("data-still", results[x].images.fixed_height_still.url).attr("data-animate", 
-                    results[x].images.fixed_height.url).attr("data-state", "still");
+                    results[x].images.fixed_height.url).attr("data-state", "still").attr("class", "gifs");
 
-                $(topicImage).prepend($("<br><br>"));
-                $(ratingLabel).append(topicImage);
                 $(resultsDiv).append(ratingLabel);
+                $(/*topicImage*/resultsDiv).append($("<br><br>"));
+                $(/*ratingLabel*/ resultsDiv).append(topicImage);
                 $("#gifResultsContainer").append(resultsDiv);
             }
         });
@@ -102,4 +102,20 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".topics-info", displayResults);
+
+    // $(".gifs").on("click", function() {
+    $(document).on("click", ".gifs", function() {
+        var currentState = $(this).attr("data-state");
+        var animateURL = $(this).attr("data-animate");
+        var stillURL = $(this).attr("data-still");
+        if (currentState === "still") {
+            $(this).attr("src", animateURL);
+            $(this).attr("data-state", "animate");
+        }
+
+        if (currentState === "animate") {
+            $(this).attr("src", stillURL);
+            $(this).attr("data-state", "still");
+        }
+    })
 })
