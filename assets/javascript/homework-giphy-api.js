@@ -131,5 +131,5 @@ $(document).ready(function() {
         // }
     });
 
-    $("button").on("click", "topics-info", displayResults);
+    $("button").on("click", ".topics-info", displayResults());
 })
