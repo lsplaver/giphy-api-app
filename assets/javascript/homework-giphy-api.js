@@ -6,7 +6,7 @@ $(document).ready(function() {
     function initializeButtonsContainer() {
         // for loop to create the buttons for each index of the topics array
         for (var x = 0; x < topics.length; x++) {
-            $("#buttonsContainer").append($("<button>").attr("id", ("btnTopic-" + topics[x])).text(topics[x]));
+            $("#buttonsContainer").append($("<button>").attr("id", topics[x] /*("btnTopic-" + topics[x])*/).attr("class", "topics-info").text(topics[x]));
         }
     }
 
@@ -52,9 +52,52 @@ $(document).ready(function() {
     initializeButtonsContainer(),initializeAddTopicContainer();
 
     function addNewTopicButton(newTopic) {
+        $("#buttonsContainer").empty();
         topics.push(newTopic);
-        var x = topics.length - 1;
-        $("#buttonsContainer").append($("<button>").attr("id", ("btnTopic-" + topics[x])).text(topics[x]));
+        for (var x = 0; x < topics.length; x++) {
+            // $("#buttonsContainer").append($("<button>").attr("id", ("btnTopic-" + topics[x])).text(topics[x]));
+            var a = $("<button>");
+            a.attr("id", topics[x]); // ("btnTopic-" + topics[x]));
+            a.attr("class", "topics-info");
+            a.text(topics[x]);
+            $("#buttonsContainer").append(a);
+        }
+    //     var tempArray = [];
+    //     // topics.reverse();
+    //     var topicsLength = topics.length;
+
+    //     for (var x = 1; x < topics.length; x++) {
+    //         x--;
+    //         tempArray.push(topics.pop());
+    //    }
+
+    //     // tempArray.reverse();
+    //     for (var x = 1; x < tempArray.length; x++) {
+    //         x--;
+    //         topics.push(tempArray.pop());
+    //     }
+
+    //     $("#buttonsContainer").empty();
+
+    //     for (var x = 0; x < topics.length; x++) {
+    //         $("#buttonsContainer").append($("<button>").attr("id", ("btnTopic-" + topics[x])).text(topics[x]));
+    //     }
+    }
+
+    function displayResults() {
+        var btnClicked = $(this).attr("id");
+        // displayResults(btnClicked);
+        
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=W3Nj5uF17CXgQ3pHRxcfbAQyk4xwXotM&q="
+             + btnClicked + "&limit=25&offset=0&rating=y&rating=g&rating=pg&rating=pg13&lang=en";
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response) {
+            var results = response.data;
+
+            console.log(results);
+        });
     }
 
     // event listener for when a button is clicked
@@ -70,5 +113,23 @@ $(document).ready(function() {
             var newTopic = $("#topicInput").val().trim();
             addNewTopicButton(newTopic);
         }
+
+        // else {
+            // var btnClicked = $(this).attr("id");
+            // // displayResults(btnClicked);
+            
+            // var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=W3Nj5uF17CXgQ3pHRxcfbAQyk4xwXotM&q="
+            //      + btnClicked + "&limit=25&offset=0&rating=y&rating=g&rating=pg&rating=pg13&lang=en";
+            // $.ajax({
+            //     url: queryURL,
+            //     method: "GET"
+            // }).then(function(response) {
+            //     var results = response.data;
+
+            //     console.log(results);
+            // })
+        // }
     });
+
+    $("button").on("click", "topics-info", displayResults);
 })
